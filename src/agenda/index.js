@@ -7,6 +7,7 @@ import {parseDate, xdateToData} from '../interface';
 import dateutils from '../dateutils';
 import CalendarList from '../calendar-list';
 import ReservationsList from './reservation-list';
+import CustomDay from './custom-day';
 import styleConstructor from './style';
 import {VelocityTracker} from '../input';
 
@@ -397,7 +398,7 @@ export default class AgendaView extends Component {
     return (
       <View onLayout={this.onLayout} style={[this.props.style, {flex: 1, overflow: 'hidden'}]}>
         <View style={this.styles.reservations}>
-          {this.renderReservations()}
+          {this.renderCustomDay()}
         </View>
         <Animated.View style={headerStyle}>
           <Animated.View style={{flex:1, transform: [{translateY: contentTranslate}]}}>
@@ -457,5 +458,13 @@ export default class AgendaView extends Component {
         </Animated.ScrollView>
       </View>
     );
+  }
+
+  renderCustomDay() {
+    return (
+      <CustomDay 
+        reservations={this.props.items}
+        selectedDay={this.state.selectedDay} />
+    )    
   }
 }
