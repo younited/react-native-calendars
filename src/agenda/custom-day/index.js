@@ -194,10 +194,23 @@ class ReactComp extends Component {
               </View>
             </View>
           ))}
-          <View style={{backgroundColor: 'red', top: 70, width: '100%', position: 'absolute', height: 1, marginLeft: 60}}/>
+          {this.renderCurrentTimeMarker()}
           {this.renderDayEvents(dayEvents)}
         </ScrollView>
       </View>
+    )
+  }
+
+  renderCurrentTimeMarker() {
+
+    const date = new XDate();
+
+    if (date.diffDays(this.props.selectedDay) > 1 || date.getDate() !== this.props.selectedDay.getDate()) {
+      return null;
+    }
+
+    return (
+      <View style={{backgroundColor: 'red', top: (this.getDayMinute(date) + 10), width: '100%', position: 'absolute', height: 1, marginLeft: 60}}/>
     )
   }
 
@@ -309,7 +322,7 @@ class ReactComp extends Component {
     const left = 60 + (j * width) + (j * 3)
 
     return (
-      <View style={{backgroundColor: event.calendar.cardBackground, width, height, position:'absolute', top, left, borderRadius: 5, padding: 5, overflow: 'hidden', opacity: 0.8}}>
+      <View key={event.id} style={{backgroundColor: event.calendar.cardBackground, width, height, position:'absolute', top, left, borderRadius: 5, padding: 5, overflow: 'hidden', opacity: 0.8}}>
         <Text style={{color: event.calendar.cardTextColor, fontWeight: 'bold'}}>{event.name}</Text>
       </View>
     )
