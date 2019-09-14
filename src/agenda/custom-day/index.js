@@ -183,7 +183,7 @@ class ReactComp extends Component {
 
     return (
       <View style={style.main}>
-        <ScrollView>
+        <ScrollView ref={this.refView} onContentSizeChange={this.onContentSizeChange.bind(this)}>
           {['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'].map(item => (
             <View style={style.hourView}>
               <View style={style.hourLine}>
@@ -199,6 +199,28 @@ class ReactComp extends Component {
         </ScrollView>
       </View>
     )
+  }
+
+  onContentSizeChange(contentWidth, contentHeight) {
+    console.log(33, contentWidth, contentHeight)
+
+    const date = new XDate();
+    if (contentHeight > 1400 && date.diffDays(this.props.selectedDay) < 1 && date.getDate() === this.props.selectedDay.getDate()) {
+      const offset = this.getDayMinute(date) - 180; // show in the middle of the screen
+      if (offset > 0) // it can be < 0 if it's before 3am
+        this.scrollViewRef.scrollTo({y: offset})
+    }
+  }
+
+  refView = el => {
+    this.scrollViewRef = el
+
+    // const date = new XDate();
+    // if (date.diffDays(this.props.selectedDay) < 1 && date.getDate() === this.props.selectedDay.getDate()) {
+    //   console.log(11)
+    //   this.scrollViewRef.scrollToEnd()
+    // }
+    console.log(22)
   }
 
   renderCurrentTimeMarker() {
