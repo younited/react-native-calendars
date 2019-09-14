@@ -316,13 +316,17 @@ class ReactComp extends Component {
     const start = this.getDayMinute(event.start);
     const end = this.getDayMinute(event.end);
 
-    const height = (end - start) - 3;
+    let height = (end - start) - 3;
+    if (height < 20) {
+      height = 20
+    }
     const top = start + 10;
     const width = this.getBoxWidth(event, eventMatrix);
     const left = 60 + (j * width) + (j * 3)
 
     return (
-      <View key={event.id} style={{backgroundColor: event.calendar.cardBackground, width, height, position:'absolute', top, left, borderRadius: 5, padding: 5, overflow: 'hidden', opacity: 0.8}}>
+      <View key={event.id} style={{backgroundColor: event.calendar.cardBackground, width, height, position:'absolute', top, left, 
+                                   borderRadius: 5, paddingHorizontal: 5, overflow: 'hidden', opacity: 0.8}}>
         <Text style={{color: event.calendar.cardTextColor, fontWeight: 'bold'}}>{event.name}</Text>
       </View>
     )
@@ -342,8 +346,8 @@ class ReactComp extends Component {
     })
 
     const eventMatrix = this.getEventsColumnMatrix(dayEvents);
-    console.log('1---', dayEvents)
-    console.log('---', eventMatrix)
+    // console.log('1---', dayEvents)
+    // console.log('---', eventMatrix)
     const events = [];
 
     for (let i = 0 ; i < eventMatrix.length ; i++) {
