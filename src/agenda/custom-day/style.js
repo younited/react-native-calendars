@@ -26,6 +26,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: 60,
     justifyContent: 'center'
+  },
+  allDayView: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    // alignItems: 'center',
+    elevation: 4,
+    width: '100%',
+    // height: 100
+    paddingTop: 5,
+    paddingBottom: 2
+  },
+  allDayTxtView: {
+    width: 60,
+    justifyContent: 'center',
+    flexDirection: 'row',
   }
 })
 export default styles

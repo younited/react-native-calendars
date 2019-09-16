@@ -183,6 +183,7 @@ class ReactComp extends Component {
 
     return (
       <View style={style.main}>
+        {this.renderAllDayEvents(allDayEvents)}
         <ScrollView ref={this.refView} onContentSizeChange={this.onContentSizeChange.bind(this)}>
           {['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'].map(item => (
             <View style={style.hourView}>
@@ -197,6 +198,32 @@ class ReactComp extends Component {
           {this.renderCurrentTimeMarker()}
           {this.renderDayEvents(dayEvents)}
         </ScrollView>
+      </View>
+    )
+  }
+
+  renderAllDayEvents(events) {
+
+    if (!events || !events.length)
+      return null
+
+    return (
+      <View style={style.allDayView}>
+        <View style={style.allDayTxtView}>
+          <Text style={style.allDayTxt}>All day</Text>
+        </View>
+        <View>
+        {events.map(event => (
+          <View key={event.id} style={{backgroundColor: event.calendar.cardBackground, paddingHorizontal: 5, paddingVertical: 3, marginRight: 5, marginBottom: 3, width: width - 65, flexDirection: 'row'}}>
+            {event.calendarId === 'birthdays' && <Text style={{fontFamily: 'Material', color: event.calendar.cardTextColor, paddingTop: 1}}>cake</Text>}
+            <Text style={{color: event.calendar.cardTextColor, fontWeight: 'bold'}}> {event.name}</Text>
+          </View>
+        ))}
+          {/* <View key={events[0].id} style={{backgroundColor: events[0].calendar.cardBackground, paddingHorizontal: 5, paddingVertical: 3, marginRight: 5, marginBottom: 2, width: width - 65, flexDirection: 'row'}}>
+          {events[0].calendarId === 'birthdays' && <Text style={{fontFamily: 'Material', color: events[0].calendar.cardTextColor, paddingTop: 1}}>cake</Text>}
+            <Text style={{color: events[0].calendar.cardTextColor, fontWeight: 'bold'}}> {events[0].name}</Text>
+          </View> */}
+        </View>
       </View>
     )
   }
