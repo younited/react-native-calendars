@@ -7,6 +7,7 @@ const STYLESHEET_ID = 'stylesheet.agenda.main';
 export default function styleConstructor(theme = {}) {
   const appStyle = {...defaultStyle, ...theme};
   const { knob, weekdays } = platformStyles(appStyle);
+  weekdays.paddingTop = 5;
   return StyleSheet.create({
     knob,
     weekdays,
